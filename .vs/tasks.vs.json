@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-Mind_the_Code%20Team_2",
+      "appliesTo": "/",
+      "type": "launch"
+    }
+  ]
+}
