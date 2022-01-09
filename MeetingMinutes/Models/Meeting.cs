@@ -6,6 +6,12 @@ using System.Collections.Generic;
 
 namespace MeetingMinutes.Models
 {
+    public enum Status
+     { 
+            New,
+            Started,
+            Finished
+    }
     public class Meeting
     {
         [Key]
@@ -29,12 +35,7 @@ namespace MeetingMinutes.Models
         [Required]
         public DateTime MeetingDate { get; set; }
 
-        public enum Status
-        { 
-            New,
-            Started,
-            Finished
-        }
+        public Status Status { get; set; }
 
         [Required]
         public string Title { get; set; } //The title of the meeting  

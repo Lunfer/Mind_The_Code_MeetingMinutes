@@ -44,6 +44,7 @@ namespace MeetingMinutes.Data
             {
                 E.Property("DateCreated").CurrentValue = DateTime.Now;
                 E.Property("DateUpdated").CurrentValue = DateTime.Now;
+                E.Property("Status").CurrentValue = Status.New;
             });
 
             var EditedEntities = ChangeTracker.Entries()

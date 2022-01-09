@@ -54,7 +54,7 @@ namespace MeetingMinutes.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MeetingID,DateCreated,CreatedBy,DateUpdated,MeetingDate,Title,ExternalParticipants")] Meeting meeting)
+        public async Task<IActionResult> Create([Bind("MeetingID,DateCreated,CreatedBy,DateUpdated,MeetingDate,Status,Title,ExternalParticipants")] Meeting meeting)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace MeetingMinutes.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MeetingID,DateCreated,CreatedBy,DateUpdated,MeetingDate,Title,ExternalParticipants")] Meeting meeting)
+        public async Task<IActionResult> Edit(int id, [Bind("MeetingID,DateCreated,CreatedBy,DateUpdated,MeetingDate,Status,Title,ExternalParticipants")] Meeting meeting)
         {
             if (id != meeting.MeetingID)
             {
