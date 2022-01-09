@@ -31,13 +31,14 @@ namespace MeetingMinutes.Data
             modelBuilder.Entity<MeetingItem>().ToTable("MeetingItem");
             modelBuilder.Entity<RiskLevel>().ToTable("RiskLevel");
         }
+        
         public override Task<int> SaveChangesAsync(
 
             bool acceptAllChangesOnSuccess,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             var AddedEntities = ChangeTracker.Entries()
-                .Where(E => E.State == EntityState.Added)
+                .Where(E => (E.State == EntityState.Added) && (E.Entity is Meeting))
                 .ToList();
 
             AddedEntities.ForEach(E =>
@@ -48,7 +49,7 @@ namespace MeetingMinutes.Data
             });
 
             var EditedEntities = ChangeTracker.Entries()
-                .Where(E => E.State == EntityState.Modified)
+                .Where(E => (E.State == EntityState.Modified) && (E.Entity is Meeting))
                 .ToList();
 
             EditedEntities.ForEach(E =>
