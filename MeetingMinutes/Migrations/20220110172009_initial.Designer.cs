@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace MeetingMinutes.Data.Migrations
+namespace MeetingMinutes.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220108233324_modifydbcontext")]
-    partial class modifydbcontext
+    [Migration("20220110172009_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,13 +113,16 @@ namespace MeetingMinutes.Data.Migrations
                     b.Property<DateTime>("MeetingDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MeetingID");
 
-                    b.ToTable("Meetings");
+                    b.ToTable("Meeting");
                 });
 
             modelBuilder.Entity("MeetingMinutes.Models.MeetingItem", b =>
@@ -169,7 +172,7 @@ namespace MeetingMinutes.Data.Migrations
 
                     b.HasIndex("RiskLevelid");
 
-                    b.ToTable("MeetingItems");
+                    b.ToTable("MeetingItem");
                 });
 
             modelBuilder.Entity("MeetingMinutes.Models.MeetingParticipant", b =>
@@ -181,7 +184,7 @@ namespace MeetingMinutes.Data.Migrations
 
                     b.HasKey("MeetingParticipantsID");
 
-                    b.ToTable("MeetingParticipants");
+                    b.ToTable("MeetingParticipant");
                 });
 
             modelBuilder.Entity("MeetingMinutes.Models.RiskLevel", b =>
@@ -196,7 +199,7 @@ namespace MeetingMinutes.Data.Migrations
 
                     b.HasKey("RiskLevelID");
 
-                    b.ToTable("RiskLevels");
+                    b.ToTable("RiskLevel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

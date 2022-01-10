@@ -4,16 +4,14 @@ using MeetingMinutes.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace MeetingMinutes.Data.Migrations
+namespace MeetingMinutes.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220108213816_second")]
-    partial class second
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,13 +111,66 @@ namespace MeetingMinutes.Data.Migrations
                     b.Property<DateTime>("MeetingDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MeetingID");
 
-                    b.ToTable("Meetings");
+                    b.ToTable("Meeting");
+                });
+
+            modelBuilder.Entity("MeetingMinutes.Models.MeetingItem", b =>
+                {
+                    b.Property<int>("MeetingItemID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AssignedTo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ChangeRequested")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Deadline")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileAttachment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Meetingid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RequestedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RiskLevelid")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("VisibleInMinutes")
+                        .HasColumnType("bit");
+
+                    b.HasKey("MeetingItemID");
+
+                    b.HasIndex("Meetingid");
+
+                    b.HasIndex("RiskLevelid");
+
+                    b.ToTable("MeetingItem");
                 });
 
             modelBuilder.Entity("MeetingMinutes.Models.MeetingParticipant", b =>
@@ -131,7 +182,22 @@ namespace MeetingMinutes.Data.Migrations
 
                     b.HasKey("MeetingParticipantsID");
 
-                    b.ToTable("MeetingParticipants");
+                    b.ToTable("MeetingParticipant");
+                });
+
+            modelBuilder.Entity("MeetingMinutes.Models.RiskLevel", b =>
+                {
+                    b.Property<int>("RiskLevelID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RiskLevelID");
+
+                    b.ToTable("RiskLevel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -269,6 +335,25 @@ namespace MeetingMinutes.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("MeetingMinutes.Models.MeetingItem", b =>
+                {
+                    b.HasOne("MeetingMinutes.Models.Meeting", "Meeting")
+                        .WithMany("MeetingItems")
+                        .HasForeignKey("Meetingid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MeetingMinutes.Models.RiskLevel", "RiskLevel")
+                        .WithMany("MeetingItemss")
+                        .HasForeignKey("RiskLevelid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Meeting");
+
+                    b.Navigation("RiskLevel");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -318,6 +403,16 @@ namespace MeetingMinutes.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MeetingMinutes.Models.Meeting", b =>
+                {
+                    b.Navigation("MeetingItems");
+                });
+
+            modelBuilder.Entity("MeetingMinutes.Models.RiskLevel", b =>
+                {
+                    b.Navigation("MeetingItemss");
                 });
 #pragma warning restore 612, 618
         }
