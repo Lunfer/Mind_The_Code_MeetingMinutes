@@ -4,14 +4,16 @@ using MeetingMinutes.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MeetingMinutes.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220110202634_INitial")]
+    partial class INitial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,17 +182,7 @@ namespace MeetingMinutes.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MeetingId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("MeetingParticipantsID");
-
-                    b.HasIndex("MeetingId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("MeetingParticipant");
                 });
@@ -364,21 +356,6 @@ namespace MeetingMinutes.Migrations
                     b.Navigation("RiskLevel");
                 });
 
-            modelBuilder.Entity("MeetingMinutes.Models.MeetingParticipant", b =>
-                {
-                    b.HasOne("MeetingMinutes.Models.Meeting", null)
-                        .WithMany("MeetingParticipants")
-                        .HasForeignKey("MeetingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MeetingMinutes.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -433,8 +410,6 @@ namespace MeetingMinutes.Migrations
             modelBuilder.Entity("MeetingMinutes.Models.Meeting", b =>
                 {
                     b.Navigation("MeetingItems");
-
-                    b.Navigation("MeetingParticipants");
                 });
 
             modelBuilder.Entity("MeetingMinutes.Models.RiskLevel", b =>

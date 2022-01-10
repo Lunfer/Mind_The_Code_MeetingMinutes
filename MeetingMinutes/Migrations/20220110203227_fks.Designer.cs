@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MeetingMinutes.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220110172009_initial")]
-    partial class initial
+    [Migration("20220110203227_fks")]
+    partial class fks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,7 +182,17 @@ namespace MeetingMinutes.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("MeetingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("MeetingParticipantsID");
+
+                    b.HasIndex("MeetingId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("MeetingParticipant");
                 });
@@ -356,6 +366,21 @@ namespace MeetingMinutes.Migrations
                     b.Navigation("RiskLevel");
                 });
 
+            modelBuilder.Entity("MeetingMinutes.Models.MeetingParticipant", b =>
+                {
+                    b.HasOne("MeetingMinutes.Models.Meeting", null)
+                        .WithMany("MeetingParticipants")
+                        .HasForeignKey("MeetingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MeetingMinutes.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -410,6 +435,8 @@ namespace MeetingMinutes.Migrations
             modelBuilder.Entity("MeetingMinutes.Models.Meeting", b =>
                 {
                     b.Navigation("MeetingItems");
+
+                    b.Navigation("MeetingParticipants");
                 });
 
             modelBuilder.Entity("MeetingMinutes.Models.RiskLevel", b =>

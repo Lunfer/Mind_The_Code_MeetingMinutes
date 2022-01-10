@@ -11,5 +11,11 @@ namespace MeetingMinutes.Models
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MeetingParticipantsID { get; set; }
+
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
+
+        [ForeignKey("FK_Meeting")]
+        public int MeetingId { get; set; }
     }
 }

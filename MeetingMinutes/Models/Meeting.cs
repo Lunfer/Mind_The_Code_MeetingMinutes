@@ -45,5 +45,6 @@ namespace MeetingMinutes.Models
 
         //Navigation Properties
         public List<MeetingItem> MeetingItems { get; set; }
+        public List<MeetingParticipant> MeetingParticipants { get; set; }
     }
 }
