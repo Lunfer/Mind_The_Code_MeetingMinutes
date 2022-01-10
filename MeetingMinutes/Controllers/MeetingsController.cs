@@ -24,6 +24,16 @@ namespace MeetingMinutes.Controllers
         {
             return View(await _context.Meetings.ToListAsync());
         }
+        // GET: Upcoming
+        public async Task<IActionResult> Upcoming()
+        {
+            return View("Index", await _context.Meetings.Where(j => j.MeetingDate > DateTime.Now).ToListAsync());
+        }
+        // GET: History
+        public async Task<IActionResult> History()
+        {
+            return View("Index", await _context.Meetings.Where(j => j.MeetingDate < DateTime.Now).ToListAsync());
+        }
 
         // GET: Meetings/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -42,6 +52,7 @@ namespace MeetingMinutes.Controllers
 
             return View(meeting);
         }
+      
 
         // GET: Meetings/Create
         public IActionResult Create()
