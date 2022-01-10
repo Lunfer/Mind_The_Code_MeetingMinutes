@@ -71,7 +71,7 @@ namespace MeetingMinutes.Controllers
             {
                 _context.Add(meeting);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Upcoming)); //CHANGE IT FROM "Index" TO "Upcoming" to Fetch the Upcoming Meeting on CREATE
             }
             return View(meeting);
         }
