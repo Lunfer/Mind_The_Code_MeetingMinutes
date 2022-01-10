@@ -27,12 +27,12 @@ namespace MeetingMinutes.Controllers
         // GET: Upcoming
         public async Task<IActionResult> Upcoming()
         {
-            return View("Index", await _context.Meetings.Where(j => j.MeetingDate > DateTime.Now).ToListAsync());
+            return View("UpcomingList", await _context.Meetings.Where(j => j.MeetingDate > DateTime.Now).ToListAsync());
         }
         // GET: History
         public async Task<IActionResult> History()
         {
-            return View("Index", await _context.Meetings.Where(j => j.MeetingDate < DateTime.Now).ToListAsync());
+            return View("HistoryList", await _context.Meetings.Where(j => j.MeetingDate < DateTime.Now).ToListAsync());
         }
 
         // GET: Meetings/Details/5
