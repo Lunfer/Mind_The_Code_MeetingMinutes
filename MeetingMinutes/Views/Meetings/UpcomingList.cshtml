@@ -6,6 +6,75 @@
 
 <h1>Upcoming Meetings</h1>
 
+@if (!Model.Any()){
+    <tr><td colspan="4">There are no Upcoming Meetings. 
+        <br/>
+        Do you want to create one? 
+        <a asp-action="Create">Create New</a>
+    </td></tr>
+}
+else{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateUpdated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MeetingDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExternalParticipants)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateUpdated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MeetingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExternalParticipants)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MeetingID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MeetingID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MeetingID">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+}
 
 <table class="table">
     <thead>

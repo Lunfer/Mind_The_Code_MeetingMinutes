@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MeetingMinutes.Data;
 using MeetingMinutes.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MeetingMinutes.Controllers
 {
+    [Authorize]
     public class MeetingsController : Controller
     {
         private readonly ApplicationDbContext _context;
