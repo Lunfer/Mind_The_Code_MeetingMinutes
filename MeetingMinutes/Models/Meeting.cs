@@ -33,6 +33,7 @@ namespace MeetingMinutes.Models
         public DateTime DateUpdated { get; set; }
 
         [Required]
+        [Display(Name = "Meeting Date")]
         public DateTime MeetingDate { get; set; }
 
         public Status Status { get; set; }
@@ -41,10 +42,12 @@ namespace MeetingMinutes.Models
         public string Title { get; set; } //The title of the meeting  
 
         [Required]
+        [Display(Name = "External Participants")]
         public string ExternalParticipants { get; set; } // A comma-separated string, keeping the mails of external(not registered in the system) participants.
 
         //Navigation Properties
         public List<MeetingItem> MeetingItems { get; set; }
+        [Display(Name = "Meeting Participants")]
         public List<MeetingParticipant> MeetingParticipants { get; set; }
     }
 }

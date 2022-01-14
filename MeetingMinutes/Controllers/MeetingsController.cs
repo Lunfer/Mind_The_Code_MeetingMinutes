@@ -57,7 +57,23 @@ namespace MeetingMinutes.Controllers
         // GET: Meetings/Create
         public IActionResult Create()
         {
+
+            // ΓΙΑ ΕΜΦΑΝΙΣΗ ΛΙΣΤΑΣ ΜΕ USERS //
+            List<ApplicationUser> NewParticipantList = new List<ApplicationUser>();
+
+            // GETTING DATA FROM DATABASE USING EF CORE //
+            NewParticipantList = (from user in _context.Users
+                                    select user).ToList();
+
+
+            // INSERTING SELECTED ITEM IN LIST //
+            NewParticipantList.Insert(0, new ApplicationUser { Id = "", UserName = "Select" });
+
+            // ASSIGNING ApplicationUsersList TO ViewBag.ListofApplicationUsers  //
+            ViewBag.ListOfParticipants = NewParticipantList;
+
             return View();
+
         }
 
         // POST: Meetings/Create
@@ -74,6 +90,38 @@ namespace MeetingMinutes.Controllers
                 return RedirectToAction(nameof(Upcoming)); //CHANGE IT FROM "Index" TO "Upcoming" to Fetch the Upcoming Meeting on CREATE
             }
             return View(meeting);
+        }
+
+
+        
+
+        [HttpPost]
+        public void Add(ApplicationUser newParticipant)
+        {
+            // ------- Validation ------- //
+
+            if (newParticipant.UserName == " ")
+            {
+                ModelState.AddModelError("", "Select Participant");
+            }
+
+            // ------- Getting selected Value ------- //
+            string SelectValue = newParticipant.UserName;
+
+            ViewBag.SelectedValue = newParticipant.UserName;
+
+            // ------- Setting Data back to ViewBag after Posting Form ------- //
+
+            List<ApplicationUser> participantlist = new List<Models.ApplicationUser>();
+
+            participantlist = (from user in _context.Users
+                               select user).ToList();
+
+            participantlist.Insert(0, new ApplicationUser { Id = "", UserName = "Select" });
+            ViewBag.ListofParticipants = participantlist;
+            // ---------------------------------------------------------------- //
+
+           // return View();
         }
 
         // GET: Meetings/Edit/5

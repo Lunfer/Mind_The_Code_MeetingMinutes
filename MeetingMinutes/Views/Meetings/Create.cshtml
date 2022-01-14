@@ -1,5 +1,6 @@
 ﻿@model MeetingMinutes.Models.Meeting
 
+
 @{
     ViewData["Title"] = "Create";
 }
@@ -37,6 +38,44 @@
         </form>
     </div>
 </div>
+
+@{  
+    <form asp-controller="Meeting" asp-action="Create" method="post" class="form-horizontal" role="form">  
+        <div class="form-group">  
+            <div class="row">  
+                <div class="alert-danger" asp-validation-summary="ModelOnly"></div>  
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">  
+                    <label asp-for="MeetingParticipants" class="control-label"></label>  
+                    <select asp-for="MeetingID"   
+                      class="form-control"   
+                      asp-items="@(new SelectList(@ViewBag.ListOfParticipants ,"Id", "UserName"))">  
+                    </select>  
+                </div>  
+            </div>  
+        </div>  
+        <div class="form-group">  
+            <div class="row">  
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">  
+                    <input id="Add1" type="submit" value="Add participant" />  
+                </div>  
+            </div>  
+        </div>  
+        <div class="form-group">  
+            <div class="row">  
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">  
+                    @if (ViewBag.SelectedValue != null)  
+                    {  
+                        <text>Selected ID: </text> @ViewBag.SelectedValue;  
+                    }  
+                </div>  
+            </div>  
+        </div>  
+    </form>  
+} 
+
+
+
+
 
 <div>
     <a asp-action="Index">Back to List</a>
