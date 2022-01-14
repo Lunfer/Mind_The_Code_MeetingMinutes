@@ -37,25 +37,49 @@ namespace MeetingMinutes.Data
             bool acceptAllChangesOnSuccess,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            var AddedEntities = ChangeTracker.Entries()
-                .Where(E => (E.State == EntityState.Added) && (E.Entity is Meeting))
+            var AddedMeetingEntities = ChangeTracker.Entries()
+                .Where(E => (E.Entity is Meeting) && (E.State == EntityState.Added) )
                 .ToList();
 
-            AddedEntities.ForEach(E =>
+            AddedMeetingEntities.ForEach(E =>
             {
                 E.Property("DateCreated").CurrentValue = DateTime.Now;
                 E.Property("DateUpdated").CurrentValue = DateTime.Now;
-                E.Property("Status").CurrentValue = Status.New;
+                if (DateTime.Parse(E.Property("MeetingDate").CurrentValue.ToString()) > DateTime.Now)
+                {
+                    E.Property("Status").CurrentValue = Status.New;
+                }
+                else {
+                    E.Property("Status").CurrentValue = Status.Finished;
+                }
             });
 
-            var EditedEntities = ChangeTracker.Entries()
-                .Where(E => (E.State == EntityState.Modified) && (E.Entity is Meeting))
+            var AddedMeetingItemsEntities = ChangeTracker.Entries()
+                .Where(E => (E.Entity is MeetingItem) && (E.State == EntityState.Added))
                 .ToList();
 
-            EditedEntities.ForEach(E =>
+            AddedMeetingItemsEntities.ForEach(E =>
+            {
+                var Meeting = ChangeTracker.Entries().Where(M => M.Property("MeetingID") == E.Property("Meetingid").CurrentValue).ToList();
+                Meeting.ForEach(E => E.Property("Status").CurrentValue = Status.Started);
+            });
+
+            var EditedMeetingEntities = ChangeTracker.Entries()
+                .Where(E => (E.Entity is Meeting) && (E.State == EntityState.Modified) )
+                .ToList();
+
+            EditedMeetingEntities.ForEach(E =>
             {
                 E.Property("DateCreated").IsModified = false;
                 E.Property("DateUpdated").CurrentValue = DateTime.Now;
+                if (DateTime.Parse(E.Property("MeetingDate").CurrentValue.ToString()) > DateTime.Now)
+                {
+                    E.Property("Status").CurrentValue = Status.New;
+                }
+                else
+                {
+                    E.Property("Status").CurrentValue = Status.Finished;
+                }
             });
 
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);

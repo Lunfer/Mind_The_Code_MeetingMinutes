@@ -172,7 +172,7 @@ namespace MeetingMinutes.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Upcoming));
             }
             return View(meeting);
         }
@@ -203,7 +203,7 @@ namespace MeetingMinutes.Controllers
             var meeting = await _context.Meetings.FindAsync(id);
             _context.Meetings.Remove(meeting);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Upcoming));
         }
 
         private bool MeetingExists(int id)
