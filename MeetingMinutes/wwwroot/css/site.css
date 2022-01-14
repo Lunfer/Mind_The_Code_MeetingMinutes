@@ -2,24 +2,52 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    color: #EAD3CB;
+    font-size: 20px;
+}
+
+.customTitle {
+    color: #EAD3CB;
+    font-weight: 700;
+}
+
+
+.customNav {
+    background: #2B4F60;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 6px;
+}
+
+.customBtn {
+    font-weight: 500;
+    color: #EAD3CB;
+    font-size: 18px;
+}
+
+.nav-item :hover {
+    background: #EAD3CB;
+    border-radius: 16px;
+    color: #2B4F60;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #EAD3CB;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #BDC7C9;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
+  color: #BDC7C9;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
