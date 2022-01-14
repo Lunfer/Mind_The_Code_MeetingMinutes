@@ -14,8 +14,12 @@ a.navbar-brand {
     font-weight: 700;
 }
 
-.login{
+.loginText{
+    font-size: 20px;
+}
 
+.underLoginText{
+    font-size: 14px;
 }
 
 .customNav {
@@ -53,6 +57,10 @@ a.navbar-brand {
 /* Provide sufficient contrast against white background */
 a {
     color: #EAD3CB;
+}
+.linkHover :hover {
+    text-decoration: none;
+    color: #845460;
 }
 
 .btn-primary {
@@ -108,7 +116,6 @@ button.accept-policy {
 html {
   position: relative;
   min-height: 100%;
- 
 }
 
 body {
