@@ -32,6 +32,18 @@ a.navbar-brand {
     font-size: 18px;
 }
 
+.customBtnPurple {
+    font-weight: 500;
+    background-color: #845460;
+    font-size: 18px;
+    color: #EAD3CB;
+    border-radius: 16px;
+}
+
+.customBtnPurple :hover {
+    background-color: #fff;
+}
+
 .nav-item :hover {
     background: #EAD3CB;
     border-radius: 16px;
@@ -49,11 +61,9 @@ a {
     border-color: #845460;
 }
 
-.btn-primary :hover{
-    color:inherit;
-    text-decoration:inherit;
+.btn :hover {
+    color: #EAD3CB;
 }
-
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #BDC7C9;
