@@ -31,6 +31,7 @@
                 <label asp-for="MeetingParticipants" class="control-label"></label>
                 @for (int i=0; i<Model.MeetingParticipants.Count(); i++)
                 {
+                    <br />
                     @Html.EditorFor(m => Model.MeetingParticipants[i].IsChecked)
                     @Html.DisplayFor(m => Model.MeetingParticipants[i].FullName)
                     @Html.HiddenFor(m => Model.MeetingParticipants[i].FullName)
@@ -44,7 +45,7 @@
                 <span asp-validation-for="ExternalParticipants" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn customBtnPurple" />
             </div>
         </form>
     </div>
@@ -55,7 +56,7 @@
 
 
 
-<div>
+<div class=""> 
     <a asp-action="Upcoming">Back to Upcoming List</a>
 </div>
 
