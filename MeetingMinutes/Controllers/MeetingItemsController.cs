@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MeetingMinutes.Data;
 using MeetingMinutes.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace MeetingMinutes.Controllers
 {
@@ -14,9 +16,12 @@ namespace MeetingMinutes.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public MeetingItemsController(ApplicationDbContext context)
+        private readonly IWebHostEnvironment _environment;
+
+        public MeetingItemsController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         // GET: MeetingItems
@@ -37,7 +42,7 @@ namespace MeetingMinutes.Controllers
             var meetingItem = await _context.MeetingItems
                 .Include(m => m.Meeting)
                 .Include(m => m.RiskLevel)
-                .FirstOrDefaultAsync(m => m.MeetingItemID == id);
+                .FirstOrDefaultAsync(m => m.Meetingid== id);
             if (meetingItem == null)
             {
                 return NotFound();
@@ -161,6 +166,40 @@ namespace MeetingMinutes.Controllers
         private bool MeetingItemExists(int id)
         {
             return _context.MeetingItems.Any(e => e.MeetingItemID == id);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UploadFile([FromForm] MeetingItem meetingitem)
+        {
+            try
+            {
+                //Add Guid
+                var addGuid = Convert.ToString(Guid.NewGuid());
+
+                if (meetingitem.Image != null)
+                {
+                    foreach (var formfile in meetingitem.Image)
+                    {
+                        //save it with Guid + random name
+                        string path = @$"{_environment.WebRootPath}\images\{string.Concat(addGuid, Path.GetRandomFileName())}.png";
+
+                        //The recommended way of saving the file is to save outside of the application folders. 
+                        //Because of security issues, if we save the files in the outside directory we can scan those folders
+                        //in background checks without affecting the application. 
+                        //string path = $"{_config["AppSettings:FileRootPath"]}/{string.Concat(addGuid, Path.GetRandomFileName())}.png";
+
+
+                        using var fileStream = new FileStream(path, FileMode.Create);
+                        await formfile.CopyToAsync(fileStream);
+                    }
+                }
+                return RedirectToAction(nameof(Index), "Home");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+
         }
     }
 }

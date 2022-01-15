@@ -42,8 +42,7 @@
                     <input class="form-check-input" asp-for="VisibleInMinutes" /> @Html.DisplayNameFor(model => model.VisibleInMinutes)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="Meetingid" class="control-label"></label>
+            <div class="form-group"
                 <input type="hidden" asp-for="Meetingid" class ="form-control" asp-items="ViewBag.Meetingid" value="ViewBag.Meetingid">
             </div>
             <div class="form-group">
