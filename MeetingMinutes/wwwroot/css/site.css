@@ -47,11 +47,23 @@ a.navbar-brand {
 
 .indexPageTitle {
     color: #845460;
-    
+    font-size: 18px;
 }
 .indexPagePTag {
     color: #2B4F60;
     text-align: center;
+    font-size: 12px;
+}
+.indexPagePTag2 {
+    color: #2B4F60;
+    text-align: center;
+    font-size: 10px;
+}
+.indexPagePTag4 {
+    color: #2B4F60;
+    text-align: center;
+    font-size: 10px;
+    text-decoration: underline;
 }
 
 .customBtnPurple :hover {
