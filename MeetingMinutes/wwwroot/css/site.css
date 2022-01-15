@@ -84,12 +84,17 @@ a.navbar-brand {
 }
 
 /* Provide sufficient contrast against white background */
-a {
-    color: #EAD3CB;
+.nav-link {
+    color:#EAD3CB;
 }
+
 .linkHover :hover {
     text-decoration: none;
     color: #845460;
+}
+
+.anchorTags {
+    color: #2B4F60;
 }
 
 .btn-primary {
