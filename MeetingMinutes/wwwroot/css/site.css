@@ -14,8 +14,10 @@ a.navbar-brand {
     font-weight: 700;
 }
 
-.loginText{
+.loginText {
     font-size: 20px;
+    border-bottom: 1px solid #845460;
+    padding-bottom: 5px;
 }
 
 .underLoginText{
@@ -113,9 +115,10 @@ a.navbar-brand {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #BDC7C9;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #EAD3CB;
+    background-color: #845460;
+    border-color: #845460;
+    border-radius: 16px;
 }
 .login-container {
     background-color: #2B4F60;
