@@ -45,7 +45,7 @@ a.navbar-brand {
     border-radius: 16px;
 }
 .indexImage {
-    align-items: center;
+    width: auto;
 }
 .indexText {
     text-align: center;
@@ -168,7 +168,6 @@ body {
     line-height: 60px; /* Vertically center the text there */
     background-color: #845460;
     border-radius: 16px;
-    margin-bottom: 10px;
     color: #EAD3CB;
     
 }
