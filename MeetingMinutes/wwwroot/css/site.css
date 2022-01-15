@@ -34,6 +34,7 @@ a.navbar-brand {
     font-weight: 500;
     color: #EAD3CB;
     font-size: 18px;
+    border-radius: 16px;
 }
 
 .customBtnPurple {
@@ -71,6 +72,7 @@ a {
 
 .btn :hover {
     color: #EAD3CB;
+    border-radius: 16px;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -134,4 +136,9 @@ body {
     background-color: #845460;
     border-radius: 16px;
     margin-bottom: 10px;
+    color: #EAD3CB;
+}
+.footerHover :hover {
+    text-decoration: none;
+    color: inherit;
 }
