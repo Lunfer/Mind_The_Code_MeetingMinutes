@@ -1,0 +1,20 @@
+﻿@model MeetingMinutes.Models.MeetingItem
+
+
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Upload Files</h5>
+        <section>
+            <form method="post" enctype="multipart/form-data"
+                  asp-controller="Home" asp-action="UploadFile">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input asp-for="@Model.Image" type="file" multiple />
+                        <button type="submit" class="btn btn-outline-dark">Submit File</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

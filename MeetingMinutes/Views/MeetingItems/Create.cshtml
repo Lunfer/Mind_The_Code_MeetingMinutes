@@ -1,0 +1,69 @@
+﻿@model MeetingMinutes.Models.MeetingItem
+
+@{
+    ViewData["Title"] = "Create New Note";
+}
+
+<h1>Create</h1>
+
+<h4>MeetingItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Deadline" class="control-label"></label>
+                <input asp-for="Deadline" class="form-control" />
+                <span asp-validation-for="Deadline" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignedTo" class="control-label"></label>
+                <input asp-for="AssignedTo" class="form-control" />
+                <span asp-validation-for="AssignedTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestedBy" class="control-label"></label>
+                <input asp-for="RequestedBy" class="form-control" />
+                <span asp-validation-for="RequestedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ChangeRequested" /> @Html.DisplayNameFor(model => model.ChangeRequested)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="VisibleInMinutes" /> @Html.DisplayNameFor(model => model.VisibleInMinutes)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Meetingid" class="control-label"></label>
+                <input type="hidden" asp-for="Meetingid" class ="form-control" asp-items="ViewBag.Meetingid" value="ViewBag.Meetingid">
+            </div>
+            <div class="form-group">
+                <label asp-for="RiskLevelid" class="control-label"></label>
+                <select asp-for="RiskLevelid" class ="form-control" asp-items="ViewBag.RiskLevelid"></select>
+            </div>
+            <div class="form-group">
+                <partial name="_upload" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

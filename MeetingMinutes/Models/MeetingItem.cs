@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace MeetingMinutes.Models
 {
@@ -28,6 +29,9 @@ namespace MeetingMinutes.Models
 
         [Required]
         public bool VisibleInMinutes { get; set; } = true;
+
+        [NotMapped]
+        public List<IFormFile> Image { get; set; }
 
         public string FileAttachment { get; set; }
 
