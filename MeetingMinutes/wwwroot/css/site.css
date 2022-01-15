@@ -45,6 +45,15 @@ a.navbar-brand {
     border-radius: 16px;
 }
 
+.indexPageTitle {
+    color: #845460;
+    
+}
+.indexPagePTag {
+    color: #2B4F60;
+    text-align: center;
+}
+
 .customBtnPurple :hover {
     background-color: #fff;
 }
