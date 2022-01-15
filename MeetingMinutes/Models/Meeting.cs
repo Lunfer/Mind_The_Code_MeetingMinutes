@@ -30,11 +30,12 @@ namespace MeetingMinutes.Models
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime DateUpdated { get; set; }
+        public DateTime DateUpdated { get; set; } = DateTime.Now;
 
         [Required]
         [Display(Name = "Meeting Date")]
-        public DateTime MeetingDate { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime MeetingDate { get; set; } = DateTime.Now;
 
         public Status Status { get; set; }
 
@@ -48,6 +49,7 @@ namespace MeetingMinutes.Models
         //Navigation Properties
         public List<MeetingItem> MeetingItems { get; set; }
         [Display(Name = "Meeting Participants")]
-        public List<MeetingParticipant> MeetingParticipants { get; set; }
+        public virtual ICollection<MeetingParticipant> MeetingParticipants { get; set; }
+
     }
 }

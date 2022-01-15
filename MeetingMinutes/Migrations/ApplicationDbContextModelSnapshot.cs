@@ -366,15 +366,17 @@ namespace MeetingMinutes.Migrations
 
             modelBuilder.Entity("MeetingMinutes.Models.MeetingParticipant", b =>
                 {
-                    b.HasOne("MeetingMinutes.Models.Meeting", null)
+                    b.HasOne("MeetingMinutes.Models.Meeting", "Meeting")
                         .WithMany("MeetingParticipants")
                         .HasForeignKey("MeetingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MeetingMinutes.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("MeetingParticipants")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Meeting");
 
                     b.Navigation("User");
                 });
@@ -428,6 +430,11 @@ namespace MeetingMinutes.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MeetingMinutes.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("MeetingParticipants");
                 });
 
             modelBuilder.Entity("MeetingMinutes.Models.Meeting", b =>

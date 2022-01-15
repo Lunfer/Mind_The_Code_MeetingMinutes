@@ -1,4 +1,4 @@
-﻿@model MeetingMinutes.Models.Meeting
+﻿@model MeetingMinutes.Models.MeetingViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -41,11 +41,23 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
-         <dt class = "col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Status)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MeetingParticipants)
+        </dt>
+        <dd class = "col-sm-10">
+            @foreach(var participant in Model.MeetingParticipants)
+            {
+                if (participant.IsChecked)
+                {
+                    <div>@participant.FullName</div>
+                }
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ExternalParticipants)

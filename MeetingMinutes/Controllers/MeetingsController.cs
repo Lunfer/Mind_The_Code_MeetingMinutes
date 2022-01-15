@@ -26,15 +26,98 @@ namespace MeetingMinutes.Controllers
         {
             return View(await _context.Meetings.ToListAsync());
         }
+
         // GET: Upcoming
         public async Task<IActionResult> Upcoming()
         {
-            return View("UpcomingList", await _context.Meetings.Where(j => j.MeetingDate > DateTime.Now).ToListAsync());
+            var meetings = await _context.Meetings.Where(j => j.MeetingDate > DateTime.Now).ToListAsync();
+            var meetingsviewmodels = new List<MeetingViewModel>();
+            foreach (var meeting in meetings)
+            {
+                if (meeting == null)
+                {
+                    return NotFound();
+                }
+                var Results = from user in _context.Users
+                              select new
+                              {
+
+                                  Id = user.Id,
+                                  FullName = user.FullName,
+                                  Checked = ((from ab in _context.MeetingParticipants
+                                              where (ab.MeetingId == meeting.MeetingID) & (ab.UserId == user.Id)
+                                              select ab).Count() > 0),
+                              };
+                var MyViewModel = new MeetingViewModel();
+                MyViewModel.MeetingID = meeting.MeetingID;
+                MyViewModel.DateUpdated = meeting.DateUpdated;
+                MyViewModel.CreatedBy = meeting.CreatedBy;
+                MyViewModel.MeetingDate = meeting.MeetingDate;
+                MyViewModel.ExternalParticipants = meeting.ExternalParticipants;
+                MyViewModel.DateCreated = meeting.DateCreated;
+                MyViewModel.Title = meeting.Title;
+                MyViewModel.Status = meeting.Status;
+
+                var MyCheckBoxList = new List<CheckBoxViewModel>();
+                foreach (var item in Results)
+                {
+                    MyCheckBoxList.Add(new CheckBoxViewModel
+                    {
+                        Id = item.Id,
+                        FullName = item.FullName,
+                        IsChecked = item.Checked
+                    });
+                }
+                MyViewModel.MeetingParticipants = MyCheckBoxList;
+                meetingsviewmodels.Add(MyViewModel);
+            }
+            return View("UpcomingList", meetingsviewmodels);
         }
         // GET: History
         public async Task<IActionResult> History()
         {
-            return View("HistoryList", await _context.Meetings.Where(j => j.MeetingDate < DateTime.Now).ToListAsync());
+            var meetings = await _context.Meetings.Where(j => j.MeetingDate < DateTime.Now).ToListAsync();
+            var meetingsviewmodels = new List<MeetingViewModel>();
+            foreach (var meeting in meetings)
+            {
+                if (meeting == null)
+                {
+                    return NotFound();
+                }
+                var Results = from user in _context.Users
+                              select new
+                              {
+
+                                  Id = user.Id,
+                                  FullName = user.FullName,
+                                  Checked = ((from ab in _context.MeetingParticipants
+                                              where (ab.MeetingId == meeting.MeetingID) & (ab.UserId == user.Id)
+                                              select ab).Count() > 0),
+                              };
+                var MyViewModel = new MeetingViewModel();
+                MyViewModel.MeetingID = meeting.MeetingID;
+                MyViewModel.DateUpdated = meeting.DateUpdated;
+                MyViewModel.CreatedBy = meeting.CreatedBy;
+                MyViewModel.MeetingDate = meeting.MeetingDate;
+                MyViewModel.ExternalParticipants = meeting.ExternalParticipants;
+                MyViewModel.DateCreated = meeting.DateCreated;
+                MyViewModel.Title = meeting.Title;
+                MyViewModel.Status = meeting.Status;
+
+                var MyCheckBoxList = new List<CheckBoxViewModel>();
+                foreach (var item in Results)
+                {
+                    MyCheckBoxList.Add(new CheckBoxViewModel
+                    {
+                        Id = item.Id,
+                        FullName = item.FullName,
+                        IsChecked = item.Checked
+                    });
+                }
+                MyViewModel.MeetingParticipants = MyCheckBoxList;
+                meetingsviewmodels.Add(MyViewModel);
+            }
+            return View("HistoryList", meetingsviewmodels);
         }
 
         // GET: Meetings/Details/5
@@ -52,29 +135,92 @@ namespace MeetingMinutes.Controllers
                 return NotFound();
             }
 
-            return View(meeting);
+            var Results = from user in _context.Users
+                          select new
+                          {
+
+                              Id = user.Id,
+                              FullName = user.FullName,
+                              Checked = ((from ab in _context.MeetingParticipants
+                                          where (ab.MeetingId == id) & (ab.UserId == user.Id)
+                                          select ab).Count() > 0),
+                          };
+            var MyViewModel = new MeetingViewModel();
+            MyViewModel.MeetingID = id.Value;
+            MyViewModel.DateUpdated = meeting.DateUpdated;
+            MyViewModel.CreatedBy = meeting.CreatedBy;
+            MyViewModel.MeetingDate = meeting.MeetingDate;
+            MyViewModel.ExternalParticipants = meeting.ExternalParticipants;
+            MyViewModel.DateCreated = meeting.DateCreated;
+            MyViewModel.Title = meeting.Title;
+            MyViewModel.Status = meeting.Status;
+
+            var MyCheckBoxList = new List<CheckBoxViewModel>();
+            foreach (var item in Results)
+            {
+                MyCheckBoxList.Add(new CheckBoxViewModel
+                {
+                    Id = item.Id,
+                    FullName = item.FullName,
+                    IsChecked = item.Checked
+                });
+            }
+            MyViewModel.MeetingParticipants = MyCheckBoxList;
+            return View(MyViewModel);
         }
-      
+
 
         // GET: Meetings/Create
         public IActionResult Create()
         {
+            /*
+           // για εμφανιση λιστασ με users //
+           List<ApplicationUser> newparticipantlist = new List<ApplicationUser>();
 
-            // ΓΙΑ ΕΜΦΑΝΙΣΗ ΛΙΣΤΑΣ ΜΕ USERS //
-            List<ApplicationUser> NewParticipantList = new List<ApplicationUser>();
-
-            // GETTING DATA FROM DATABASE USING EF CORE //
-            NewParticipantList = (from user in _context.Users
-                                    select user).ToList();
+           // getting data from database using ef core //
+           newparticipantlist = (from user in _context.Users
+                                 select user).ToList();
 
 
-            // INSERTING SELECTED ITEM IN LIST //
-            NewParticipantList.Insert(0, new ApplicationUser { Id = "", UserName = "Select" });
+           // inserting selected item in list //
+           newparticipantlist.Insert(0, new ApplicationUser { Id = "", UserName = "select" });
 
-            // ASSIGNING ApplicationUsersList TO ViewBag.ListofApplicationUsers  //
-            ViewBag.ListOfParticipants = NewParticipantList;
+           // assigning applicationuserslist to viewbag.listofapplicationusers  //
+           ViewBag.listofparticipants = newparticipantlist;
+            */
+            var Results = from user in _context.Users
+                          select new
+                          {
 
-            return View();
+                              Id = user.Id,
+                              FullName = user.FullName,
+                              Checked = false,
+                          };
+
+            var newMeeting = new Meeting();
+            var MyViewModel = new MeetingViewModel {
+                MeetingID = newMeeting.MeetingID,
+                DateUpdated = newMeeting.DateUpdated,
+                DateCreated = newMeeting.DateCreated,
+                CreatedBy = newMeeting.CreatedBy,
+                MeetingDate = newMeeting.MeetingDate,
+                ExternalParticipants = newMeeting.ExternalParticipants,
+                Status = newMeeting.Status,
+                Title = newMeeting.Title,
+            };
+            var MyCheckBoxList = new List<CheckBoxViewModel>();
+            foreach (var item in Results)
+            {
+                MyCheckBoxList.Add(new CheckBoxViewModel
+                {
+                    Id = item.Id,
+                    FullName = item.FullName,
+                    IsChecked = item.Checked
+                });
+            }
+            MyViewModel.MeetingParticipants = MyCheckBoxList;
+
+            return View(MyViewModel);
 
         }
 
@@ -83,11 +229,31 @@ namespace MeetingMinutes.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MeetingID,DateCreated,CreatedBy,DateUpdated,MeetingDate,Status,Title,ExternalParticipants")] Meeting meeting)
+        public async Task<IActionResult> Create(MeetingViewModel meeting)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(meeting);
+
+                var MyMeeting = new Meeting {
+                    CreatedBy = meeting.CreatedBy,
+                    MeetingDate = meeting.MeetingDate,
+                    ExternalParticipants = meeting.ExternalParticipants,
+                    Title = meeting.Title
+                };
+                _context.Add(MyMeeting);
+                await _context.SaveChangesAsync();
+                foreach (var participant in meeting.MeetingParticipants)
+                {
+                    if (participant.IsChecked)
+                    {
+                        _context.MeetingParticipants.Add(
+                            new MeetingParticipant()
+                            {
+                                MeetingId = MyMeeting.MeetingID,
+                                UserId = participant.Id
+                            });
+                    }
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Upcoming)); //CHANGE IT FROM "Index" TO "Upcoming" to Fetch the Upcoming Meeting on CREATE
             }
@@ -139,7 +305,38 @@ namespace MeetingMinutes.Controllers
             {
                 return NotFound();
             }
-            return View(meeting);
+            var Results = from user in _context.Users
+                          select new
+                          {
+
+                              Id = user.Id,
+                              FullName = user.FullName,
+                              Checked = ((from ab in _context.MeetingParticipants
+                                          where (ab.MeetingId == id) & (ab.UserId == user.Id)
+                                          select ab).Count() > 0),
+                          };
+            var MyViewModel = new MeetingViewModel();
+            MyViewModel.MeetingID = id.Value;
+            MyViewModel.DateUpdated = meeting.DateUpdated;
+            MyViewModel.CreatedBy = meeting.CreatedBy;
+            MyViewModel.MeetingDate = meeting.MeetingDate;
+            MyViewModel.ExternalParticipants = meeting.ExternalParticipants;
+            MyViewModel.DateUpdated = meeting.DateUpdated;
+            MyViewModel.Title = meeting.Title;
+            MyViewModel.Status = meeting.Status;
+
+            var MyCheckBoxList = new List<CheckBoxViewModel>();
+            foreach (var item in Results)
+            {
+                MyCheckBoxList.Add(new CheckBoxViewModel
+                {
+                    Id = item.Id,
+                    FullName = item.FullName,
+                    IsChecked = item.Checked
+                });
+            }
+            MyViewModel.MeetingParticipants = MyCheckBoxList;
+            return View(MyViewModel);
         }
 
         // POST: Meetings/Edit/5
@@ -147,7 +344,7 @@ namespace MeetingMinutes.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MeetingID,DateCreated,CreatedBy,DateUpdated,MeetingDate,Status,Title,ExternalParticipants")] Meeting meeting)
+        public async Task<IActionResult> Edit(int id, MeetingViewModel meeting)
         {
             if (id != meeting.MeetingID)
             {
@@ -158,7 +355,31 @@ namespace MeetingMinutes.Controllers
             {
                 try
                 {
-                    _context.Update(meeting);
+                    var MyMeeting = _context.Meetings.Find(id);
+                    MyMeeting.MeetingID = id;
+                    MyMeeting.CreatedBy = meeting.CreatedBy;
+                    MyMeeting.MeetingDate = meeting.MeetingDate;
+                    MyMeeting.ExternalParticipants = meeting.ExternalParticipants;
+                    MyMeeting.Status = meeting.Status;
+                    MyMeeting.Title = meeting.Title;
+                    foreach (var participant in _context.MeetingParticipants)
+                    {
+                        if (participant.MeetingId == id)
+                        {
+                            _context.Entry(participant).State = EntityState.Deleted;
+                        }
+                    }
+                    foreach (var participant in meeting.MeetingParticipants)
+                    {
+                        if (participant.IsChecked)
+                        {
+                            _context.MeetingParticipants.Add(
+                                new MeetingParticipant() { 
+                                    MeetingId = id, 
+                                    UserId = participant.Id });
+                        }
+                    }
+                    _context.Update(MyMeeting);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -191,8 +412,38 @@ namespace MeetingMinutes.Controllers
             {
                 return NotFound();
             }
+            var Results = from user in _context.Users
+                          select new
+                          {
 
-            return View(meeting);
+                              Id = user.Id,
+                              FullName = user.FullName,
+                              Checked = ((from ab in _context.MeetingParticipants
+                                          where (ab.MeetingId == id) & (ab.UserId == user.Id)
+                                          select ab).Count() > 0),
+                          };
+            var MyViewModel = new MeetingViewModel();
+            MyViewModel.MeetingID = id.Value;
+            MyViewModel.DateUpdated = meeting.DateUpdated;
+            MyViewModel.CreatedBy = meeting.CreatedBy;
+            MyViewModel.MeetingDate = meeting.MeetingDate;
+            MyViewModel.ExternalParticipants = meeting.ExternalParticipants;
+            MyViewModel.DateUpdated = meeting.DateUpdated;
+            MyViewModel.Title = meeting.Title;
+            MyViewModel.Status = meeting.Status;
+
+            var MyCheckBoxList = new List<CheckBoxViewModel>();
+            foreach (var item in Results)
+            {
+                MyCheckBoxList.Add(new CheckBoxViewModel
+                {
+                    Id = item.Id,
+                    FullName = item.FullName,
+                    IsChecked = item.Checked
+                });
+            }
+            MyViewModel.MeetingParticipants = MyCheckBoxList;
+            return View(MyViewModel);
         }
 
         // POST: Meetings/Delete/5

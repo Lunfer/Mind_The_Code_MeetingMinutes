@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MeetingMinutes.Models.Meeting>
+﻿@model IEnumerable<MeetingMinutes.Models.MeetingViewModel>
 
 @{
     ViewData["Title"] = "HistoryList";
@@ -34,6 +34,9 @@ else{
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.MeetingParticipants)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.ExternalParticipants)
                 </th>
                 <th></th>
@@ -60,6 +63,14 @@ else{
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
+                <td>
+                @foreach(var participant in item.MeetingParticipants)
+                {
+                    if (participant.IsChecked)
+                    {
+                        <div>@participant.FullName</div>
+                    }
+                }</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ExternalParticipants)
                 </td>
