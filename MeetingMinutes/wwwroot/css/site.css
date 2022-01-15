@@ -25,7 +25,7 @@ a.navbar-brand {
 .customNav {
     background: #2B4F60;
     border-radius: 16px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     margin: 6px;
 }
@@ -33,7 +33,7 @@ a.navbar-brand {
 .customBtn {
     font-weight: 500;
     color: #EAD3CB;
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 16px;
 }
 
@@ -44,10 +44,17 @@ a.navbar-brand {
     color: #EAD3CB;
     border-radius: 16px;
 }
+.indexImage {
+    align-items: center;
+}
+.indexText {
+    text-align: center;
+}
 
 .indexPageTitle {
     color: #845460;
     font-size: 18px;
+    text-align: center;
 }
 .indexPagePTag {
     color: #2B4F60;
@@ -57,13 +64,13 @@ a.navbar-brand {
 .indexPagePTag2 {
     color: #2B4F60;
     text-align: center;
-    font-size: 10px;
+    
 }
 .indexPagePTag4 {
     color: #2B4F60;
     text-align: center;
     font-size: 10px;
-    text-decoration: underline;
+    font-style: italic;
 }
 
 .customBtnPurple :hover {
@@ -158,6 +165,7 @@ body {
     border-radius: 16px;
     margin-bottom: 10px;
     color: #EAD3CB;
+    
 }
 .footerHover :hover {
     text-decoration: none;
