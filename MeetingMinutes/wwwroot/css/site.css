@@ -97,6 +97,10 @@ a.navbar-brand {
     color: #2B4F60;
 }
 
+.anchorTagsCreme {
+    color:#EAD3CB;
+}
+
 .btn-primary {
     color: #BDC7C9;
     background-color: #845460;
@@ -173,5 +177,5 @@ body {
 }
 .footerHover :hover {
     text-decoration: none;
-    color: inherit;
+    color:#BDC7C9;
 }
