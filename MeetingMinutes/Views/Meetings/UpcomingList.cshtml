@@ -7,10 +7,13 @@
 <h1>Upcoming Meetings</h1>
 
 @if (!Model.Any()){
-    <tr><td colspan="4">There are no Upcoming Meetings. 
-        <br/>
-        Do you want to create one? 
-        <a asp-action="Create">Create New</a>
+    <tr>
+        
+            <td colspan="4">There are no Upcoming Meetings. 
+             <br/>
+             <div class="linkHover d-flex">
+            Do you want to create one? 
+            <a class="anchorTags pl-2" asp-action="Create"><span>   </span>Create New</a><div/>
     </td></tr>
 }
 else{
