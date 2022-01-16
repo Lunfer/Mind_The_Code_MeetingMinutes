@@ -74,6 +74,9 @@ a.navbar-brand {
     font-size: 10px;
     font-style: italic;
 }
+table, th, td {
+    border: 1px solid #845460;
+}
 
 .customBtnPurple :hover {
     background-color: #fff;
