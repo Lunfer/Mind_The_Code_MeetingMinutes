@@ -78,6 +78,13 @@ a.navbar-brand {
 .customBtnPurple :hover {
     background-color: #fff;
 }
+.bottomPadding {
+    padding-bottom: 10px;
+}
+.manageAccountOptions {
+    background-color: #845460;
+    border-radius: 16px;
+}
 
 .nav-item :hover {
     background: #EAD3CB;
