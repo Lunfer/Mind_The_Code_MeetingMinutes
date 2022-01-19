@@ -132,6 +132,200 @@ namespace MeetingMinutes.Controllers
             return View(meetingItem);
         }
 
+        [HttpPost]
+        public IActionResult List(int meetingId)
+        {
+            MasterDetailViewModel model = new MasterDetailViewModel
+            {
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = _context.Meetings.Find(meetingId),
+                DataEntryTarget = DataEntryTargets.MeetingItems,
+                DataDisplayMode = DataDisplayModes.Read
+
+            };
+
+            _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
+
+            return View("Main", model);
+        }
+
+        [HttpPost]
+        public IActionResult Select(int meetingId, int meetingItemId)
+        {
+            MasterDetailViewModel model = new MasterDetailViewModel
+        {
+            Meetings = _context.Meetings.ToList(),
+            SelectedMeeting = _context.Meetings.Find(meetingId),
+            SelectedMeetingItem = _context.MeetingItems.Find(meetingItemId),
+            DataEntryTarget = DataEntryTargets.MeetingItems,
+            DataDisplayMode = DataDisplayModes.Read
+
+
+        };
+
+            _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
+
+            return View("Main", model);
+        }
+
+        [HttpPost]
+        public IActionResult InsertEntry(int meetingId)
+        {
+            MasterDetailViewModel model = new MasterDetailViewModel
+            {
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = _context.Meetings.Find(meetingId),
+                SelectedMeetingItem = null,
+                DataEntryTarget = DataEntryTargets.MeetingItems,
+                DataDisplayMode = DataDisplayModes.Insert
+
+                
+            };
+
+            _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
+
+            return View("Main", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult InsertSave(MeetingItem item)
+        //public async Task<IActionResult> InsertSave([Bind("MeetingItemID,Description,Deadline,AssignedTo,RequestedBy,ChangeRequested,VisibleInMinutes,Meetingid,RiskLevelid")] MeetingItem item)
+        {
+
+            /*  var MyMeetingItem = new MeetingItem
+              {
+                  Description = item.Description,
+                  RequestedBy = item.RequestedBy,
+                  Meetingid = item.Meetingid,
+                  VisibleInMinutes = true,
+                  Deadline = DateTime.Now
+
+
+              }; */
+
+
+          _context.MeetingItems.Add(item);
+          _context.SaveChanges();
+
+            MasterDetailViewModel model = new MasterDetailViewModel
+            {
+                
+
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = _context.Meetings.Find(item.Meetingid),
+                SelectedMeetingItem = _context.MeetingItems.Find(item.MeetingItemID),
+                DataEntryTarget = DataEntryTargets.MeetingItems,
+                DataDisplayMode = DataDisplayModes.Read
+
+
+            };
+
+            _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
+
+            return View("Main", model);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateEntry(int meetingId, int meetingItemId)
+        {
+            MasterDetailViewModel model = new MasterDetailViewModel
+        {
+            Meetings = _context.Meetings.ToList(),
+            SelectedMeeting = _context.Meetings.Find(meetingId),
+            SelectedMeetingItem = _context.MeetingItems.Find(meetingItemId),
+            DataEntryTarget = DataEntryTargets.MeetingItems,
+            DataDisplayMode = DataDisplayModes.Update
+
+        };
+            _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
+
+            return View("Main", model);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateSave(MeetingItem item)
+        {
+
+            _context.MeetingItems.Update(item);
+            _context.SaveChanges();
+            
+            MasterDetailViewModel model = new MasterDetailViewModel
+        {
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = _context.Meetings.Find(item.Meetingid),
+                SelectedMeetingItem = _context.MeetingItems.Find(item.MeetingItemID),
+                DataEntryTarget = DataEntryTargets.MeetingItems,
+                DataDisplayMode = DataDisplayModes.Read
+
+        };
+
+            _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
+
+            return View("Main", model);
+        }
+
+        [HttpPost]
+        public IActionResult CancelEntry(int meetingId)
+        {
+            MasterDetailViewModel model = new MasterDetailViewModel
+            {
+
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = _context.Meetings.Find(meetingId),
+                SelectedMeetingItem = null,
+                DataEntryTarget = DataEntryTargets.MeetingItems,
+                DataDisplayMode = DataDisplayModes.Read
+
+                
+            };
+
+            _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
+
+            return View("Main", model);
+        }
+
+        [HttpPost]
+        public IActionResult CancelSelection(int meetingId)
+        {
+            MasterDetailViewModel model = new MasterDetailViewModel
+            {
+
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = _context.Meetings.Find(meetingId),
+                SelectedMeetingItem = null,
+                DataEntryTarget = DataEntryTargets.MeetingItems,
+                DataDisplayMode = DataDisplayModes.Read
+
+            };
+
+            _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
+
+            return View("Main", model);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int meetingId, int meetingItemId)
+        {
+            MeetingItem item = _context.MeetingItems.Find(meetingItemId);
+            _context.MeetingItems.Remove(item);
+            _context.SaveChanges();
+
+            MasterDetailViewModel model = new MasterDetailViewModel
+            {
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = _context.Meetings.Find(meetingId),
+                SelectedMeetingItem = null,
+                DataEntryTarget = DataEntryTargets.MeetingItems,
+                DataDisplayMode = DataDisplayModes.Read
+                
+            };
+
+            _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
+
+            return View("Main", model);
+        }
+
         // GET: MeetingItems/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

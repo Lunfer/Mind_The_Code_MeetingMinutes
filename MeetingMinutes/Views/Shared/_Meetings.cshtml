@@ -1,0 +1,81 @@
+﻿@model MasterDetailViewModel
+
+
+<h1>Meeting in progress</h1>
+
+<form method="post">
+
+    <br /><br />
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <!--<th>Meeting ID</th> -->
+            <th>Title</th>
+            <th>Created By</th>
+            <th colspan="2">Actions</th>
+        </tr>
+
+        
+        @foreach (var item in Model.Meetings)
+        {
+            if (Model.SelectedMeeting != null)
+            {
+                if (item.MeetingID == Model.SelectedMeeting.MeetingID)
+                {
+                    @:<tr class="SelectedRow">
+
+                <!--<td>item.MeetingID</td>-->
+                <td>@item.Title</td>
+                <td>@item.CreatedBy</td>
+                <!-- <td>
+                    <input type="submit"
+                           value="Manage Meeting"
+                           asp-controller="Meetings"
+                           asp-action="Select"
+                           asp-route-meetingid="item.MeetingID" />
+                </td> -->
+                <td>
+                    <input type="submit"
+                           value="Manage Items"
+                           asp-controller="MeetingItems"
+                           asp-action="List"
+                           asp-route-meetingid="@item.MeetingID" />
+                </td>
+                }
+                else
+                {
+                    @:<tr>
+                }
+             }
+            else
+            {
+                @:<tr>
+            }
+                
+            @:</tr>
+        }
+    </table>
+</form>
+<hr>
+
+
+@{
+    if (Model.DataEntryTarget == DataEntryTargets.Meetings)
+    {
+        if (Model.SelectedMeeting != null)
+        {
+            if (Model.DataDisplayMode == DataDisplayModes.Read)
+            {
+                await Html.RenderPartialAsync("_ShowMeeting", Model.SelectedMeeting);
+            }
+            if (Model.DataDisplayMode == DataDisplayModes.Update)
+            {
+                await Html.RenderPartialAsync("_UpdateMeeting", Model.SelectedMeeting);
+            }
+        }
+        if (Model.DataDisplayMode == DataDisplayModes.Insert)
+        {
+            await Html.RenderPartialAsync("_InsertMeeting", new Meeting());
+        }
+    }
+}

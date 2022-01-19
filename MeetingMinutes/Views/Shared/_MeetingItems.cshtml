@@ -1,0 +1,88 @@
+﻿@model MasterDetailViewModel
+
+
+@{
+    if (Model.DataEntryTarget == DataEntryTargets.MeetingItems)
+    {
+        if (Model.SelectedMeeting != null)
+        {
+            
+            <h2><b>Meeting Minutes</b> for @Model.SelectedMeeting.Title</h2>
+
+            <form method="post">
+
+                <input type="submit"
+                       value="Add Meeting Minute"
+                       asp-controller="MeetingItems"
+                       asp-action="InsertEntry" 
+                       asp-route-meetingid="@Model.SelectedMeeting.MeetingID"/>
+
+                <br /><br />
+
+                      <table border="1" cellpadding="10">
+                          <tr>
+                              <th>Meeting ID</th>
+                              <th>Item ID</th>
+                              <th>Description</th>
+                              <th>Requested by</th>
+                              <th>Risk level</th>
+                              <th colspan="2">Actions</th>
+                          </tr>
+
+                <br /><br />
+
+                          @foreach (var item in Model.SelectedMeeting.MeetingItems)
+                          {
+                              if (Model.SelectedMeetingItem != null)
+                              {
+                                  if (item.MeetingItemID == Model.SelectedMeetingItem.MeetingItemID)
+                                  {
+                                      @:<tr class="SelectedRow">
+                                    }
+                                    else
+                                    {
+                                        @:<tr>
+                                    }
+                                }
+                                else
+                                {
+                                    @:<tr>
+                                }
+                                  <td>@item.Meetingid</td>
+                                  <td>@item.MeetingItemID</td>
+                                  <td>@item.Description</td>
+                                  <td>@item.RequestedBy</td>
+                                  <td>@item.RiskLevel</td>
+                                  <td>
+                           <input type="submit"
+                           value="Manage Item"
+                           asp-controller="MeetingItems"
+                           asp-action="Select"
+                           asp-route-meetingid="@item.Meetingid"
+                           asp-route-meetingitemid="@item.MeetingItemID"/>
+                                  </td>
+                              @:</tr>
+                          }
+                      </table>
+            </form>
+        }
+        <hr>
+
+        if (Model.SelectedMeetingItem != null)
+        {
+            if (Model.DataDisplayMode == DataDisplayModes.Read)
+            {
+                await Html.RenderPartialAsync("_ShowMeetingItem", Model.SelectedMeetingItem);
+            }
+            if (Model.DataDisplayMode == DataDisplayModes.Update)
+            {
+                await Html.RenderPartialAsync("_UpdateMeetingItem", Model.SelectedMeetingItem);
+            }
+        }
+        if (Model.DataDisplayMode == DataDisplayModes.Insert)
+        {
+            await Html.RenderPartialAsync("_InsertMeetingItem", new MeetingItem() 
+                    { Meetingid = Model.SelectedMeeting.MeetingID });
+        }
+    }
+}

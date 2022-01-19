@@ -66,7 +66,7 @@ namespace MeetingMinutes
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -74,7 +74,14 @@ namespace MeetingMinutes
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            
+            /*
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Meetings}/{action=List}/{ meetingid ?}/{ meetingitemid ?}");
+            });
+            */
         }
     }
 }

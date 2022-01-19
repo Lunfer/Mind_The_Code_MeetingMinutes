@@ -1,0 +1,39 @@
+﻿@model MeetingItem
+
+<br /><br />
+<h2><b>Insert new Meeting Minute</b></h2>
+
+<form method="post">
+
+    <input type="hidden" asp-for="Meetingid" />
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <td>Description :</td>
+            <td><input type="text" asp-for="Description" /></td>
+        </tr>
+        <tr>
+            <td>Requested by :</td>
+            <td><input type="text" asp-for="RequestedBy" /></td>
+        </tr>
+        <tr>
+            <td>Risk level id :</td>
+            <td><input type="text" asp-for="RiskLevelid" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit"
+                       value="Save"
+                       asp-controller="MeetingItems"
+                       asp-action="InsertSave"
+                       asp-route-meetingid="@Model.Meetingid" />
+
+                <input type="submit"
+                       value="Cancel"
+                       asp-controller="MeetingItems"
+                       asp-action="CancelEntry"
+                       asp-route-meetingid="@Model.Meetingid" />
+            </td>
+        </tr>
+    </table>
+</form>
