@@ -81,6 +81,7 @@ else{
                 </td>
                 <td>
                     <a asp-controller="MeetingItems" asp-action="Create" asp-route-id="@item.MeetingID">Start</a> |
+                    <a asp-controller="Meetings" asp-action="Selection" asp-route-meetingid="@item.MeetingID">Start2</a> |
                     <a asp-action="Edit" asp-route-id="@item.MeetingID">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.MeetingID">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.MeetingID">Delete</a>

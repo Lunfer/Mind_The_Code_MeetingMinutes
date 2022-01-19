@@ -261,36 +261,68 @@ namespace MeetingMinutes.Controllers
         }
 
 
-        
+
+
+        public IActionResult List()
+        {
+            MasterDetailViewModel model = new MasterDetailViewModel
+            {
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = null,
+                SelectedMeetingItem = null,
+                DataEntryTarget = DataEntryTargets.Meetings,
+                DataDisplayMode = DataDisplayModes.Read
+            };
+            return View("Main", model);
+        }
+
+        //[HttpPost]
+        public IActionResult Selection(int meetingId)
+        {
+            MasterDetailViewModel model = new MasterDetailViewModel
+            {
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = _context.Meetings.Find(meetingId),
+                SelectedMeetingItem = null,
+                DataEntryTarget = DataEntryTargets.Meetings,
+                DataDisplayMode = DataDisplayModes.Read
+
+            };
+
+            return View("Main", model);
+        }
 
         [HttpPost]
-        public void Add(ApplicationUser newParticipant)
+        public IActionResult Select(int meetingId)
         {
-            // ------- Validation ------- //
-
-            if (newParticipant.UserName == " ")
+            MasterDetailViewModel model = new MasterDetailViewModel
             {
-                ModelState.AddModelError("", "Select Participant");
-            }
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = _context.Meetings.Find(meetingId),
+                SelectedMeetingItem = null,
+                DataEntryTarget = DataEntryTargets.Meetings,
+                DataDisplayMode = DataDisplayModes.Read
 
-            // ------- Getting selected Value ------- //
-            string SelectValue = newParticipant.UserName;
+            };
 
-            ViewBag.SelectedValue = newParticipant.UserName;
-
-            // ------- Setting Data back to ViewBag after Posting Form ------- //
-
-            List<ApplicationUser> participantlist = new List<Models.ApplicationUser>();
-
-            participantlist = (from user in _context.Users
-                               select user).ToList();
-
-            participantlist.Insert(0, new ApplicationUser { Id = "", UserName = "Select" });
-            ViewBag.ListofParticipants = participantlist;
-            // ---------------------------------------------------------------- //
-
-           // return View();
+            return View("Main", model);
         }
+
+        [HttpPost]
+        public IActionResult CancelSelection()
+        {
+            MasterDetailViewModel model = new MasterDetailViewModel
+            {
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = null,
+                SelectedMeetingItem = null,
+                DataEntryTarget = DataEntryTargets.Meetings,
+                DataDisplayMode = DataDisplayModes.Read
+            };
+            return View("Main", model);
+        }
+
+
 
         // GET: Meetings/Edit/5
         public async Task<IActionResult> Edit(int? id)

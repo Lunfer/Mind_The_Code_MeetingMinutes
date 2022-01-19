@@ -1,0 +1,48 @@
+﻿@model MeetingItem
+
+
+<h2>Edit Meeting Item : @Model.Description</h2>
+
+<form method="post">
+    <table border="1" cellpadding="10">
+        <tr>
+            <td>Meeting ID :</td>
+            <td>@Model.Meetingid</td>
+        </tr>
+        <tr>
+            <td>Meeting Item ID :</td>
+            <td>@Model.MeetingItemID</td>
+        </tr>
+        <tr>
+            <td>Description :</td>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <td>Requested By :</td>
+            <td>@Model.RequestedBy</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit"
+                       value="Edit"
+                       asp-controller="MeetingItems"
+                       asp-action="UpdateEntry"
+                       asp-route-meetingid="@Model.Meetingid"
+                       asp-route-meetingitemid="@Model.MeetingItemID"/>
+
+                <input type="submit"
+                       value="Delete"
+                       asp-controller="MeetingItems"
+                       asp-action="Delete"
+                       asp-route-meetingid="@Model.Meetingid" 
+                       asp-route-meetingitemid="@Model.MeetingItemID"/>
+
+                <input type="submit"
+                       value="Cancel"
+                       asp-controller="MeetingItems"
+                       asp-action="CancelSelection"
+                       asp-route-meetingid="@Model.Meetingid" />
+            </td>
+        </tr>
+    </table>
+</form>
