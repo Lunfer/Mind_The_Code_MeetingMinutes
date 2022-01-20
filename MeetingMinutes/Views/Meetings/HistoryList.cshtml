@@ -74,8 +74,8 @@ else{
                 <td>
                     @Html.DisplayFor(modelItem => item.ExternalParticipants)
                 </td>
-                <td>                
-                    <a asp-action="Details" asp-route-id="@item.MeetingID">Details</a>                 
+                <td class="linkHoverGrey">                
+                    <a class="anchorTagsPurple" asp-action="Details" asp-route-id="@item.MeetingID">Details</a>                 
                 </td>
             </tr>
     }
