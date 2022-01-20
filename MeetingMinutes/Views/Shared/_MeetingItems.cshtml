@@ -7,24 +7,25 @@
         if (Model.SelectedMeeting != null)
         {
             
-            <h2><b>Meeting Minutes</b> for @Model.SelectedMeeting.Title</h2>
+            <h2><b>Meeting Notes</b></h2>
 
             <form method="post">
 
                 <input type="submit"
-                       value="Add Meeting Minute"
+                       value="Add Meeting Note"
                        asp-controller="MeetingItems"
                        asp-action="InsertEntry" 
                        asp-route-meetingid="@Model.SelectedMeeting.MeetingID"/>
 
-                <br /><br />
+                
 
                       <table border="1" cellpadding="10">
                           <tr>
-                              <th>Meeting ID</th>
-                              <th>Item ID</th>
+                              <th>Note id</th>
                               <th>Description</th>
                               <th>Requested by</th>
+                              <th>Assigned to</th>
+                              <th>Deadline</th>
                               <th>Risk level</th>
                               <th colspan="2">Actions</th>
                           </tr>
@@ -48,10 +49,12 @@
                                 {
                                     @:<tr>
                                 }
-                                  <td>@item.Meetingid</td>
+                                  
                                   <td>@item.MeetingItemID</td>
                                   <td>@item.Description</td>
                                   <td>@item.RequestedBy</td>
+                                  <td>@item.AssignedTo</td>
+                                  <td>@item.Deadline</td>
                                   <td>@item.RiskLevel</td>
                                   <td>
                            <input type="submit"
@@ -66,6 +69,7 @@
                       </table>
             </form>
         }
+        <br>
         <hr>
 
         if (Model.SelectedMeetingItem != null)

@@ -1,17 +1,20 @@
 ﻿@model MasterDetailViewModel
 
-
-<h1>Meeting in progress</h1>
+@{
+    <h1><b>@Model.SelectedMeeting.Title</b></h1>
+}
 
 <form method="post">
 
-    <br /><br />
+    <br>
 
     <table border="1" cellpadding="10">
         <tr>
-            <!--<th>Meeting ID</th> -->
-            <th>Title</th>
+            
             <th>Created By</th>
+            <th>Meeting Date</th>
+            <th>Meeting Participants</th>
+            <th>External Participants</th>
             <th colspan="2">Actions</th>
         </tr>
 
@@ -24,9 +27,12 @@
                 {
                     @:<tr class="SelectedRow">
 
-                <!--<td>item.MeetingID</td>-->
-                <td>@item.Title</td>
+                
+                
                 <td>@item.CreatedBy</td>
+                <td>@item.MeetingDate</td>
+                <td>@item.MeetingParticipants</td>
+                <td>@item.ExternalParticipants</td>
                 <!-- <td>
                     <input type="submit"
                            value="Manage Meeting"
@@ -56,6 +62,7 @@
         }
     </table>
 </form>
+<br>
 <hr>
 
 
