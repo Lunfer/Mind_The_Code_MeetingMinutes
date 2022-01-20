@@ -5,24 +5,16 @@
 <form method="post">
     <table border="1" cellpadding="10">
         <tr>
-            <td>Meeting ID :</td>
-            <td>
-                <input type="text" asp-for="Meetingid" readonly />
-            </td>
-        </tr>
-        <tr>
-            <td>Team Member ID :</td>
-            <td>
-                <input type="text" asp-for="MeetingItemID" readonly />
-            </td>
-        </tr>
-        <tr>
             <td>Description :</td>
             <td><input type="text" asp-for="Description" /></td>
         </tr>
         <tr>
             <td>Requested By :</td>
             <td><input type="text" asp-for="RequestedBy" /></td>
+        </tr>
+        <tr>
+            <td>Deadline</td>
+            <td><input class="form-control" asp-for="Deadline" /></td>
         </tr>
         <tr>
             <td colspan="2">

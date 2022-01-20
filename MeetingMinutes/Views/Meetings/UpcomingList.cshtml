@@ -23,9 +23,6 @@ else{
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateCreated)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.CreatedBy)
                 </th>
                 <th>
@@ -33,9 +30,6 @@ else{
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.MeetingDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
@@ -53,9 +47,6 @@ else{
     @foreach (var item in Model) {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.CreatedBy)
                 </td>
                 <td>
@@ -63,9 +54,6 @@ else{
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.MeetingDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)

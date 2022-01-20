@@ -30,6 +30,7 @@ namespace MeetingMinutes.Models
 
         [Required]
         [DataType(DataType.DateTime)]
+        [Display(Name = "Date Updated")]
         public DateTime DateUpdated { get; set; } = DateTime.Now;
 
         [Required]

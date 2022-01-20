@@ -18,16 +18,17 @@ namespace MeetingMinutes.Models
         public string Description { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime Deadline { get; set; }
-
+        [DataType(DataType.DateTime), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
+        public DateTime Deadline { get; set; } =  DateTime.Now;
+        [Display(Name ="Assigned To")]
         public string AssignedTo { get; set; }
-
+        [Display(Name ="Requested By")]
         public string RequestedBy { get; set; }
-
+        [Display(Name = "Change Requested")]
         public bool ChangeRequested { get; set; }
 
         [Required]
+        [Display(Name = "Visible in minutes")]
         public bool VisibleInMinutes { get; set; } = true;
 
         [NotMapped]
