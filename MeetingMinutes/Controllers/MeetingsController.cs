@@ -235,7 +235,7 @@ namespace MeetingMinutes.Controllers
             {
 
                 var MyMeeting = new Meeting {
-                    CreatedBy = meeting.CreatedBy,
+                    CreatedBy = User.Identity.Name,
                     MeetingDate = meeting.MeetingDate,
                     ExternalParticipants = meeting.ExternalParticipants,
                     Title = meeting.Title
@@ -288,6 +288,11 @@ namespace MeetingMinutes.Controllers
                 DataDisplayMode = DataDisplayModes.Read
 
             };
+            Meeting meeting = _context.Meetings
+                .FirstOrDefault(m => m.MeetingID == meetingId);
+            meeting.Status = Status.Started;
+            _context.Update(meeting);
+            _context.SaveChanges();
 
             return View("Main", model);
         }
@@ -319,6 +324,7 @@ namespace MeetingMinutes.Controllers
                 DataEntryTarget = DataEntryTargets.Meetings,
                 DataDisplayMode = DataDisplayModes.Read
             };
+
             return View("Main", model);
         }
 
@@ -389,7 +395,6 @@ namespace MeetingMinutes.Controllers
                 {
                     var MyMeeting = _context.Meetings.Find(id);
                     MyMeeting.MeetingID = id;
-                    MyMeeting.CreatedBy = meeting.CreatedBy;
                     MyMeeting.MeetingDate = meeting.MeetingDate;
                     MyMeeting.ExternalParticipants = meeting.ExternalParticipants;
                     MyMeeting.Status = meeting.Status;
