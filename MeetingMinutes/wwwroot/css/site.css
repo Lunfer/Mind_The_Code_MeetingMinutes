@@ -46,6 +46,7 @@ a.navbar-brand {
     color: #EAD3CB;
     border-radius: 16px;
 }
+
 .indexImage {
     width: auto;
 }
@@ -107,6 +108,15 @@ table, th, td {
 
 .anchorTags {
     color: #2B4F60;
+}
+
+.linkHoverGrey :hover {
+    text-decoration: none;
+    color: #BDC7C9;
+}
+
+.anchorTagsPurple {
+    color: #845460;
 }
 
 .anchorTagsCreme {
@@ -192,3 +202,8 @@ body {
     text-decoration: none;
     color:#BDC7C9;
 }
+
+a:hover {
+    text-decoration: none;
+}
+
