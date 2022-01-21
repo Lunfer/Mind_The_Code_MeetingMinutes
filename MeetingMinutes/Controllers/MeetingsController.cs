@@ -359,7 +359,7 @@ namespace MeetingMinutes.Controllers
             MyViewModel.CreatedBy = meeting.CreatedBy;
             MyViewModel.MeetingDate = meeting.MeetingDate;
             MyViewModel.ExternalParticipants = meeting.ExternalParticipants;
-            MyViewModel.DateUpdated = meeting.DateUpdated;
+            MyViewModel.DateCreated = meeting.DateCreated;
             MyViewModel.Title = meeting.Title;
             MyViewModel.Status = meeting.Status;
 
@@ -473,7 +473,7 @@ namespace MeetingMinutes.Controllers
             MyViewModel.CreatedBy = meeting.CreatedBy;
             MyViewModel.MeetingDate = meeting.MeetingDate;
             MyViewModel.ExternalParticipants = meeting.ExternalParticipants;
-            MyViewModel.DateUpdated = meeting.DateUpdated;
+            MyViewModel.DateCreated = meeting.DateCreated;
             MyViewModel.Title = meeting.Title;
             MyViewModel.Status = meeting.Status;
 
