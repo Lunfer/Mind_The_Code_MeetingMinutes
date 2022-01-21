@@ -32,13 +32,13 @@ namespace MeetingMinutes.Models
         public bool VisibleInMinutes { get; set; } = true;
 
         [NotMapped]
-        public List<IFormFile> Image { get; set; }
+        public List<IFormFile>? Files { get; set; }
 
-        public string FileAttachment { get; set; }
+        public string? FileAttachment { get; set; }
 
-        public string  FileName { get; set; }
+        public string?  FileName { get; set; }
 
-        public string FileType { get; set; }
+        public string? FileType { get; set; }
 
 
         //Navigation Properties
