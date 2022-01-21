@@ -132,6 +132,20 @@ namespace MeetingMinutes.Controllers
             return View(meetingItem);
         }
 
+        public IActionResult ListItems(int meetingId)
+        {
+            MasterDetailViewModel model = new MasterDetailViewModel
+            {
+                Meetings = _context.Meetings.ToList(),
+                SelectedMeeting = _context.Meetings.Find(meetingId),
+                DataEntryTarget = DataEntryTargets.MeetingItems,
+                DataDisplayMode = DataDisplayModes.Read
+
+            };
+            _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
+            return View("Main", model);
+        }
+
         [HttpPost]
         public IActionResult List(int meetingId)
         {
@@ -145,7 +159,6 @@ namespace MeetingMinutes.Controllers
             };
 
             _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
-
             return View("Main", model);
         }
 
@@ -164,7 +177,8 @@ namespace MeetingMinutes.Controllers
         };
 
             _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
-
+            ViewBag.RiskLevel = _context.RiskLevels.Where(l =>
+                l.RiskLevelID == model.SelectedMeetingItem.RiskLevelid).First().Name;
             return View("Main", model);
         }
 
@@ -181,7 +195,18 @@ namespace MeetingMinutes.Controllers
 
                 
             };
+            List<ApplicationUser> newparticipantlist = new List<ApplicationUser>();
 
+            // getting data from database using ef core //
+            newparticipantlist = (from user in _context.MeetingParticipants.Where(m => m.MeetingId == meetingId)
+                                  select user.User).ToList();
+
+
+            // inserting selected item in list //
+            newparticipantlist.Insert(0, new ApplicationUser { Id = "", UserName = "select" });
+
+            // assigning applicationuserslist to viewbag.listofapplicationusers  //
+            ViewBag.listofparticipants = newparticipantlist;
             _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
 
             return View("Main", model);
@@ -189,7 +214,7 @@ namespace MeetingMinutes.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult InsertSave(MeetingItem item)
+        public IActionResult InsertSave( MeetingItem item)
         //public async Task<IActionResult> InsertSave([Bind("MeetingItemID,Description,Deadline,AssignedTo,RequestedBy,ChangeRequested,VisibleInMinutes,Meetingid,RiskLevelid")] MeetingItem item)
         {
 
@@ -204,8 +229,32 @@ namespace MeetingMinutes.Controllers
 
               }; */
 
+            try
+            {
+                //Add Guid
+                var addGuid = Convert.ToString(Guid.NewGuid());
 
-          _context.MeetingItems.Add(item);
+                if (item.Files != null)
+                {
+                    foreach (var formfile in item.Files)
+                    {
+                        string path = @$"{_environment.WebRootPath}\files\ {string.Concat(addGuid, formfile.FileName)}";
+
+                        using var fileStream = new FileStream(path, FileMode.Create);
+                        formfile.CopyTo(fileStream);
+                        item.FileName = formfile.FileName;
+                        item.FileAttachment = path;
+                        break;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            _context.MeetingItems.Add(item);
           _context.SaveChanges();
 
             MasterDetailViewModel model = new MasterDetailViewModel
@@ -222,7 +271,7 @@ namespace MeetingMinutes.Controllers
             };
 
             _context.Entry(model.SelectedMeeting).Collection(meeting => meeting.MeetingItems).Load();
-
+            
             return View("Main", model);
         }
 
@@ -361,39 +410,6 @@ namespace MeetingMinutes.Controllers
         {
             return _context.MeetingItems.Any(e => e.MeetingItemID == id);
         }
-        [HttpPost]
-        public async Task<IActionResult> UploadFile([FromForm] MeetingItem meetingitem)
-        {
-            try
-            {
-                //Add Guid
-                var addGuid = Convert.ToString(Guid.NewGuid());
-
-                if (meetingitem.Image != null)
-                {
-                    foreach (var formfile in meetingitem.Image)
-                    {
-                        //save it with Guid + random name
-                        string path = @$"{_environment.WebRootPath}\images\{string.Concat(addGuid, Path.GetRandomFileName())}.png";
-
-                        //The recommended way of saving the file is to save outside of the application folders. 
-                        //Because of security issues, if we save the files in the outside directory we can scan those folders
-                        //in background checks without affecting the application. 
-                        //string path = $"{_config["AppSettings:FileRootPath"]}/{string.Concat(addGuid, Path.GetRandomFileName())}.png";
-
-
-                        using var fileStream = new FileStream(path, FileMode.Create);
-                        await formfile.CopyToAsync(fileStream);
-                    }
-                }
-                return RedirectToAction(nameof(Index), "Home");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw;
-            }
-
-        }
+        
     }
 }
