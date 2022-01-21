@@ -375,37 +375,6 @@ namespace MeetingMinutes.Controllers
             return View("Main", model);
         }
 
-        // GET: MeetingItems/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var meetingItem = await _context.MeetingItems
-                .Include(m => m.Meeting)
-                .Include(m => m.RiskLevel)
-                .FirstOrDefaultAsync(m => m.MeetingItemID == id);
-            if (meetingItem == null)
-            {
-                return NotFound();
-            }
-
-            return View(meetingItem);
-        }
-
-        // POST: MeetingItems/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var meetingItem = await _context.MeetingItems.FindAsync(id);
-            _context.MeetingItems.Remove(meetingItem);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool MeetingItemExists(int id)
         {
             return _context.MeetingItems.Any(e => e.MeetingItemID == id);
