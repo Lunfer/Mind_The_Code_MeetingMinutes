@@ -31,11 +31,12 @@
         </tr>
         <tr>
             <td>Risk Level</td>
-            <td>@Model.RiskLevel</td>
+            <td>@Model.RiskLevelid</td>
         </tr>
         <tr>
             <td colspan="2">
                 <input type="submit"
+                       class="btn customBtnPurple"
                        value="Edit"
                        asp-controller="MeetingItems"
                        asp-action="UpdateEntry"
@@ -43,6 +44,7 @@
                        asp-route-meetingitemid="@Model.MeetingItemID"/>
 
                 <input type="submit"
+                       class="btn customBtnPurple"
                        value="Delete"
                        asp-controller="MeetingItems"
                        asp-action="Delete"
@@ -50,6 +52,7 @@
                        asp-route-meetingitemid="@Model.MeetingItemID"/>
 
                 <input type="submit"
+                       class="btn customBtnPurple"
                        value="Cancel"
                        asp-controller="MeetingItems"
                        asp-action="CancelSelection"

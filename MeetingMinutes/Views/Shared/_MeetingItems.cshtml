@@ -11,7 +11,8 @@
 
             <form method="post">
 
-                <input type="submit"
+                <input class="btn customBtnPurple"
+                       type="submit"
                        value="Add Meeting Note"
                        asp-controller="MeetingItems"
                        asp-action="InsertEntry" 
@@ -54,6 +55,7 @@
                                   <td>@item.Deadline</td>
                                   <td>
                            <input type="submit"
+                           class="btn customBtnPurple"
                            value="Manage Item"
                            asp-controller="MeetingItems"
                            asp-action="Select"

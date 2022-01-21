@@ -69,11 +69,11 @@ else{
                 <td>
                     @Html.DisplayFor(modelItem => item.ExternalParticipants)
                 </td>
-                <td>
-                    <a asp-controller="Meetings" asp-action="Selection" asp-route-meetingid="@item.MeetingID">Start</a> |
-                    <a asp-action="Edit" asp-route-id="@item.MeetingID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MeetingID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MeetingID">Delete</a>
+                <td class="linkHoverGrey">
+                    <a class="anchorTagsPurple" asp-controller="Meetings" asp-action="Selection" asp-route-meetingid="@item.MeetingID">Start</a> |
+                    <a class="anchorTagsPurple" asp-action="Edit" asp-route-id="@item.MeetingID">Edit</a> |
+                    <a class="anchorTagsPurple" asp-action="Details" asp-route-id="@item.MeetingID">Details</a> |
+                    <a class="anchorTagsPurple" asp-action="Delete" asp-route-id="@item.MeetingID">Delete</a>
                 </td>
             </tr>
     }

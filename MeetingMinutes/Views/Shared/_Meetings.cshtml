@@ -12,7 +12,6 @@
             
             <th>Created By</th>
             <th>Meeting Date</th>
-            <th>Meeting Participants</th>
             <th>External Participants</th>
             <th colspan="2">Actions</th>
         </tr>
@@ -30,7 +29,6 @@
                 
                 <td>@item.CreatedBy</td>
                 <td>@item.MeetingDate</td>
-                <td>@item.MeetingParticipants</td>
                 <td>@item.ExternalParticipants</td>
                 <!-- <td>
                     <input type="submit"
@@ -40,14 +38,16 @@
                            asp-route-meetingid="item.MeetingID" />
                 </td> -->
                 <td>
-                    <input type="submit"
+                    <input class="btn customBtnPurple"
+                           type="submit"
                            value="Manage Items"
                            asp-controller="MeetingItems"
                            asp-action="List"
                            asp-route-meetingid="@item.MeetingID" />
                 </td>
                 <td>
-                <input type="submit"
+                <input class="btn customBtnPurple"
+                       type="submit"
                        value="Finish"
                        asp-controller="Meetings"
                        asp-action="Finish"
