@@ -1,5 +1,4 @@
 ﻿@model MasterDetailViewModel
-
 @{
     <h1><b>@Model.SelectedMeeting.Title</b></h1>
 }
@@ -46,6 +45,13 @@
                            asp-controller="MeetingItems"
                            asp-action="List"
                            asp-route-meetingid="@item.MeetingID" />
+                </td>
+                <td>
+                <input type="submit"
+                       value="Finish"
+                       asp-controller="Meetings"
+                       asp-action="Finish"
+                       asp-route-id="@item.MeetingID" />
                 </td>
                 }
                 else

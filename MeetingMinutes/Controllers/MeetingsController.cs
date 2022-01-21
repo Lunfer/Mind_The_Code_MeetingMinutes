@@ -30,7 +30,7 @@ namespace MeetingMinutes.Controllers
         // GET: Upcoming
         public async Task<IActionResult> Upcoming()
         {
-            var meetings = await _context.Meetings.Where(j => j.MeetingDate > DateTime.Now).ToListAsync();
+            var meetings = await _context.Meetings.Where(j => (j.MeetingDate > DateTime.Now)&&(j.Status!=Status.Finished)).ToListAsync();
             var meetingsviewmodels = new List<MeetingViewModel>();
             foreach (var meeting in meetings)
             {
@@ -76,7 +76,7 @@ namespace MeetingMinutes.Controllers
         // GET: History
         public async Task<IActionResult> History()
         {
-            var meetings = await _context.Meetings.Where(j => j.MeetingDate < DateTime.Now).ToListAsync();
+            var meetings = await _context.Meetings.Where(j => (j.MeetingDate < DateTime.Now) || (j.Status==Status.Finished)).ToListAsync();
             var meetingsviewmodels = new List<MeetingViewModel>();
             foreach (var meeting in meetings)
             {
@@ -435,6 +435,14 @@ namespace MeetingMinutes.Controllers
             return View(meeting);
         }
 
+        public IActionResult Finish(int id) {
+            Meeting meeting = _context.Meetings
+                .FirstOrDefault(m => m.MeetingID == id);
+            meeting.Status = Status.Finished;
+            _context.Update(meeting);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Upcoming));
+        }
         // GET: Meetings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

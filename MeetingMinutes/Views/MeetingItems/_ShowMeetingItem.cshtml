@@ -18,6 +18,22 @@
             <td>@Model.Deadline</td>
         </tr>
         <tr>
+            <td>Change Requested</td>
+            <td>@Model.ChangeRequested</td>
+        </tr>
+        <tr>
+            <td>Assigned To</td>
+            <td>@Model.AssignedTo</td>
+        </tr>
+        <tr>
+            <td>Visible in minutes</td>
+            <td>@Model.VisibleInMinutes</td>
+        </tr>
+        <tr>
+            <td>Risk Level</td>
+            <td>@Model.RiskLevel</td>
+        </tr>
+        <tr>
             <td colspan="2">
                 <input type="submit"
                        value="Edit"
@@ -38,6 +54,7 @@
                        asp-controller="MeetingItems"
                        asp-action="CancelSelection"
                        asp-route-meetingid="@Model.Meetingid" />
+                
             </td>
         </tr>
     </table>
