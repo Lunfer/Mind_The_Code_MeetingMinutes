@@ -47,6 +47,11 @@ a.navbar-brand {
     border-radius: 16px;
 }
 
+.customHeads {
+    background-color: #845460;
+    color: #EAD3CB;
+}
+
 .indexImage {
     width: auto;
 }

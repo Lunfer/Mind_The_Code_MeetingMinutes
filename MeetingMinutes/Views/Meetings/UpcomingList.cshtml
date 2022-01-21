@@ -4,7 +4,8 @@
     ViewData["Title"] = "UpcomingList";
 }
 
-<h1 class="loginText">Upcoming Meetings</h1>
+<h2><b>Upcoming Meetings</b></h2>
+<hr class="pb-3"/>
 
 @if (!Model.Any()){
     <tr>
@@ -19,9 +20,9 @@
     </tr>
 }
 else{
-    <table class="table">
+    <table border="1" cellpadding="10">
         <thead>
-            <tr>
+            <tr bgcolor="#845460" style="color:#EAD3CB;">
                 <th>
                     @Html.DisplayNameFor(model => model.CreatedBy)
                 </th>
@@ -40,7 +41,7 @@ else{
                 <th>
                     @Html.DisplayNameFor(model => model.ExternalParticipants)
                 </th>
-                <th></th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>

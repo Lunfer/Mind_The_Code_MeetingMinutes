@@ -11,12 +11,7 @@
     <h4>Meeting</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedBy)
         </dt>
@@ -67,9 +62,9 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete">
+    <form class="d-flex" asp-action="Delete">
         <input type="hidden" asp-for="MeetingID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a href='javascript:history.go(-1)'>Back to List</a>
+        <input type="submit" value="Delete" class="btn customBtnPurple" />
+        <div class="linkHover pt-1"> <span class="pl-2"> | </span> <a class="anchorTags" href='javascript:history.go(-1)'>Back to List</a></div>
     </form>
 </div>
